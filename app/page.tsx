@@ -16,10 +16,9 @@ const generateRandomHexColor = (): string => {
 export default function PaletteGeneratorPage() {
   const [palette, setPalette] = useState<string[]>([]);
 
-
-    useEffect(() => {
-      handleGeneratePalette();
-    }, []);
+  useEffect(() => {
+    handleGeneratePalette();
+  }, []);
 
   const handleGeneratePalette = () => {
     const newPalette = [
@@ -31,6 +30,11 @@ export default function PaletteGeneratorPage() {
     ];
 
     setPalette(newPalette);
+  };
+
+  const handleCopy = (colorToCopy: string) => {
+    navigator.clipboard.writeText(colorToCopy);
+    alert(`Warna ${colorToCopy} disalin!`); // Untuk sementara, kita pakai alert
   };
 
   return (
@@ -51,7 +55,11 @@ export default function PaletteGeneratorPage() {
 
       <div className="flex flex-col md:flex-row gap-4">
         {palette.map((color, index) => (
-          <div key={index} className="text-center">
+          <div
+            key={index}
+            className="text-center"
+            onClick={() => handleCopy(color)}
+          >
             <div
               className="w-32 h-48 rounded-lg shadow-lg"
               style={{ backgroundColor: color }}
