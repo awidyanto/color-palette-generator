@@ -16,7 +16,6 @@ const generateRandomHexColor = (): string => {
 export default function PaletteGeneratorPage() {
   const [palette, setPalette] = useState<string[]>([]);
   const [copiedColor, setCopiedColor] = useState("");
-  
 
   useEffect(() => {
     handleGeneratePalette();
@@ -38,6 +37,15 @@ export default function PaletteGeneratorPage() {
     navigator.clipboard.writeText(colorToCopy);
     setCopiedColor(`${colorToCopy}`);
   };
+
+  useEffect(() => {
+    const tampilPesan = () => {
+      setTimeout(() => {
+        setCopiedColor("");
+      }, 1000);
+    };
+    tampilPesan();
+  });
 
   return (
     <main className="bg-slate-900 min-h-screen flex flex-col items-center justify-center p-4">
@@ -66,16 +74,15 @@ export default function PaletteGeneratorPage() {
               className="w-32 h-48 rounded-lg shadow-lg"
               style={{ backgroundColor: color }}
             ></div>
+            <div></div>
             <p className="mt-2 font-mono text-white bg-slate-800 rounded-md px-2 py-1 text-sm">
               {color}
-              {copiedColor == color ? (
-                <p className="mt-2 font-mono text-white bg-slate-800 rounded-md px-2 py-1 text-sm">
-                  Disalin
-                </p>
-              ) : (
-                ""
-              )}
             </p>
+            {copiedColor == color && (
+              <p className="mt-2 font-mono text-white bg-slate-800 rounded-md px-2 py-1 text-sm">
+                Disalin
+              </p>
+            )}
           </div>
         ))}
       </div>
