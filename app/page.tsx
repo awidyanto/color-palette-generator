@@ -15,6 +15,8 @@ const generateRandomHexColor = (): string => {
 //component
 export default function PaletteGeneratorPage() {
   const [palette, setPalette] = useState<string[]>([]);
+  const [copiedColor, setCopiedColor] = useState("");
+  
 
   useEffect(() => {
     handleGeneratePalette();
@@ -34,7 +36,7 @@ export default function PaletteGeneratorPage() {
 
   const handleCopy = (colorToCopy: string) => {
     navigator.clipboard.writeText(colorToCopy);
-    alert(`Warna ${colorToCopy} disalin!`); // Untuk sementara, kita pakai alert
+    setCopiedColor(`${colorToCopy}`);
   };
 
   return (
@@ -66,6 +68,13 @@ export default function PaletteGeneratorPage() {
             ></div>
             <p className="mt-2 font-mono text-white bg-slate-800 rounded-md px-2 py-1 text-sm">
               {color}
+              {copiedColor == color ? (
+                <p className="mt-2 font-mono text-white bg-slate-800 rounded-md px-2 py-1 text-sm">
+                  Disalin
+                </p>
+              ) : (
+                ""
+              )}
             </p>
           </div>
         ))}
