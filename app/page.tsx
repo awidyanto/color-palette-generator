@@ -1,7 +1,7 @@
 // app/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const generateRandomHexColor = (): string => {
   return (
@@ -12,8 +12,14 @@ const generateRandomHexColor = (): string => {
   );
 };
 
+//component
 export default function PaletteGeneratorPage() {
   const [palette, setPalette] = useState<string[]>([]);
+
+
+    useEffect(() => {
+      handleGeneratePalette();
+    }, []);
 
   const handleGeneratePalette = () => {
     const newPalette = [
